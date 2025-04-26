@@ -12,85 +12,111 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #f5f7fa;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
             padding: 20px;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
         }
         h1 {
             color: #333;
+            font-size: 36px;
+            font-weight: 700;
             margin-bottom: 10px;
         }
         .description {
-            color: #666;
-            margin-bottom: 20px;
+            color: #777;
+            font-size: 18px;
+            margin-bottom: 30px;
         }
         .search-box {
             display: flex;
-            margin: 0 auto 20px;
-            max-width: 600px;
+            justify-content: center;
+            margin-bottom: 30px;
         }
         .search-box input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px 0 0 5px;
+            padding: 12px 20px;
+            border-radius: 20px;
+            border: 2px solid #ddd;
+            width: 60%;
             font-size: 16px;
         }
         .search-box button {
             padding: 12px 20px;
+            border-radius: 20px;
             background-color: #4285f4;
             color: white;
             border: none;
-            border-radius: 0 5px 5px 0;
             cursor: pointer;
             font-size: 16px;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
         }
         .search-box button:hover {
             background-color: #3367d6;
         }
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .category {
+            padding: 10px 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .category.active {
+            background-color: #4285f4;
+            color: white;
+        }
+        .category:hover:not(.active) {
+            background-color: #f0f0f0;
+        }
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+            gap: 30px;
         }
         .tool-card {
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
         }
         .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
         .tool-header {
             height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            background-color: #f8f8f8;
         }
         .tool-body {
-            padding: 15px;
+            padding: 20px;
             text-align: center;
         }
         .tool-name {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 8px;
             color: #333;
+            margin-bottom: 10px;
         }
         .tool-description {
             font-size: 14px;
@@ -100,74 +126,32 @@
             overflow: hidden;
         }
         .tool-link {
-            display: inline-block;
-            padding: 8px 20px;
+            padding: 10px 25px;
             background-color: #4285f4;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px;
+            border-radius: 30px;
+            font-size: 16px;
             transition: background-color 0.3s ease;
         }
         .tool-link:hover {
             background-color: #3367d6;
         }
-        .categories {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-        .category {
-            padding: 8px 15px;
-            background-color: #fff;
-            border-radius: 20px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .category.active {
-            background-color: #4285f4;
-            color: white;
-        }
-        .category:hover:not(.active) {
-            background-color: #e0e0e0;
-        }
         footer {
-            margin-top: 40px;
+            margin-top: 50px;
             text-align: center;
-            color: #666;
+            color: #777;
             font-size: 14px;
         }
-
-        /* 自定义品牌颜色 */
-        .chatgpt { background-color: #10a37f; }
-        .claude { background-color: #5436DA; }
-        .gemini { background-color: #4285f4; }
-        .copilot { background-color: #0078d4; }
-        .wenxin { background-color: #175de3; }
-        .xunfei { background-color: #00a0e9; }
-        .qianwen { background-color: #ff6a00; }
-        .midjourney { background-color: #1f1f1f; }
-        .zhipu { background-color: #12b7f5; }
-        .deepseek { background-color: #0058ff; }
-        .doubao { background-color: #00b06d; }
-        .other { background-color: #777; }
-
         @media (max-width: 768px) {
             .tools-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 15px;
-            }
-            .tool-header {
-                height: 90px;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 20px;
             }
             .tool-name {
-                font-size: 16px;
+                font-size: 18px;
             }
             .tool-description {
-                height: 80px;
                 font-size: 13px;
             }
         }
@@ -227,126 +211,8 @@
                 </div>
             </div>
 
-            <!-- Microsoft Copilot -->
-            <div class="tool-card" data-categories="chat code">
-                <div class="tool-header copilot">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">Microsoft Copilot</div>
-                    <div class="tool-description">微软的AI助手，与Windows和Office深度集成</div>
-                    <a href="https://copilot.microsoft.com" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
+            <!-- 更多工具项... -->
 
-            <!-- 百度文心一言 -->
-            <div class="tool-card" data-categories="chat writing">
-                <div class="tool-header wenxin">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">文心一言</div>
-                    <div class="tool-description">百度的AI对话模型，中文处理能力强</div>
-                    <a href="https://yiyan.baidu.com" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
-
-            <!-- 讯飞星火 -->
-            <div class="tool-card" data-categories="chat writing">
-                <div class="tool-header xunfei">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">讯飞星火</div>
-                    <div class="tool-description">科大讯飞的认知大模型，语音交互优秀</div>
-                    <a href="https://xinghuo.xfyun.cn" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
-
-            <!-- 通义千问 -->
-            <div class="tool-card" data-categories="chat writing">
-                <div class="tool-header qianwen">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">通义千问</div>
-                    <div class="tool-description">阿里巴巴的大语言模型，商业场景适应性强</div>
-                    <a href="https://qianwen.aliyun.com" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
-
-            <!-- DeepSeek -->
-            <div class="tool-card" data-categories="chat writing code">
-                <div class="tool-header deepseek">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">DeepSeek</div>
-                    <div class="tool-description">专注于代码和科学计算的大语言模型</div>
-                    <a href="https://chat.deepseek.com" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
-
-            <!-- 豆包 -->
-            <div class="tool-card" data-categories="chat writing image">
-                <div class="tool-header doubao">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">豆包</div>
-                    <div class="tool-description">字节跳动旗下的AI助手，多模态能力强</div>
-                    <a href="https://www.doubao.com" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
-
-            <!-- GitHub Copilot -->
-            <div class="tool-card" data-categories="code">
-                <div class="tool-header copilot">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">GitHub Copilot</div>
-                    <div class="tool-description">AI编程助手，支持多种编程语言和IDE集成</div>
-                    <a href="https://github.com/features/copilot" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
-
-            <!-- Midjourney -->
-            <div class="tool-card" data-categories="image">
-                <div class="tool-header midjourney">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">Midjourney</div>
-                    <div class="tool-description">强大的AI图像生成工具，艺术风格突出</div>
-                    <a href="https://www.midjourney.com" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
-
-            <!-- DALL-E -->
-            <div class="tool-card" data-categories="image">
-                <div class="tool-header chatgpt">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">DALL-E</div>
-                    <div class="tool-description">OpenAI的图像生成模型，可从文本创建图像</div>
-                    <a href="https://openai.com/dall-e-3" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
-
-            <!-- 智谱AI -->
-            <div class="tool-card" data-categories="chat writing">
-                <div class="tool-header zhipu">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">智谱AI</div>
-                    <div class="tool-description">清华大学背景的大语言模型，学术能力强</div>
-                    <a href="https://open.bigmodel.cn" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
-
-            <!-- Stable Diffusion -->
-            <div class="tool-card" data-categories="image">
-                <div class="tool-header other">
-                </div>
-                <div class="tool-body">
-                    <div class="tool-name">Stable Diffusion</div>
-                    <div class="tool-description">开源图像生成模型，可本地部署</div>
-                    <a href="https://stablediffusionweb.com" target="_blank" class="tool-link">访问</a>
-                </div>
-            </div>
         </div>
 
         <footer>
@@ -355,7 +221,6 @@
     </div>
 
     <script>
-        // 搜索功能
         function searchTools() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             const cards = document.querySelectorAll('.tool-card');
@@ -371,13 +236,11 @@
                 }
             });
         }
-        
-        // 分类过滤功能
+
         function filterTools(category) {
             const cards = document.querySelectorAll('.tool-card');
             const categories = document.querySelectorAll('.category');
             
-            // 更新活跃类别
             categories.forEach(cat => {
                 if (cat.textContent.toLowerCase().includes(category)) {
                     cat.classList.add('active');
@@ -386,7 +249,6 @@
                 }
             });
             
-            // 过滤卡片
             if (category === 'all') {
                 cards.forEach(card => {
                     card.style.display = 'block';
@@ -402,7 +264,6 @@
             }
         }
 
-        // 搜索框回车触发搜索
         document.getElementById('search-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 searchTools();
