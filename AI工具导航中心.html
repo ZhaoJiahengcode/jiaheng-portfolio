@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具导航中心</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .description {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            display: flex;
+            margin: 0 auto 20px;
+            max-width: 600px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+        .search-box button {
+            padding: 12px 20px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .search-box button:hover {
+            background-color: #3367d6;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .tool-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .tool-header {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .tool-logo {
+            max-width: 80%;
+            max-height: 80px;
+            object-fit: contain;
+        }
+        .tool-body {
+            padding: 15px;
+            text-align: center;
+        }
+        .tool-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .tool-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            height: a60px;
+            overflow: hidden;
+        }
+        .tool-link {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #4285f4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .tool-link:hover {
+            background-color: #3367d6;
+        }
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .category {
+            padding: 8px 15px;
+            background-color: #fff;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .category.active {
+            background-color: #4285f4;
+            color: white;
+        }
+        .category:hover:not(.active) {
+            background-color: #e0e0e0;
+        }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* 自定义品牌颜色 */
+        .chatgpt { background-color: #10a37f; }
+        .claude { background-color: #5436DA; }
+        .gemini { background-color: #4285f4; }
+        .copilot { background-color: #0078d4; }
+        .wenxin { background-color: #175de3; }
+        .xunfei { background-color: #00a0e9; }
+        .qianwen { background-color: #ff6a00; }
+        .midjourney { background-color: #1f1f1f; }
+        .zhipu { background-color: #12b7f5; }
+        .deepseek { background-color: #0058ff; }
+        .doubao { background-color: #00b06d; }
+        .other { background-color: #777; }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+            }
+            .tool-header {
+                height: 90px;
+            }
+            .tool-name {
+                font-size: 16px;
+            }
+            .tool-description {
+                height: 80px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI工具导航中心</h1>
+            <p class="description">集合热门AI工具，提高您的工作与学习效率</p>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索AI工具...">
+                <button onclick="searchTools()">搜索</button>
+            </div>
+        </header>
+
+        <div class="categories">
+            <div class="category active" onclick="filterTools('all')">全部</div>
+            <div class="category" onclick="filterTools('chat')">聊天对话</div>
+            <div class="category" onclick="filterTools('image')">图像生成</div>
+            <div class="category" onclick="filterTools('code')">代码辅助</div>
+            <div class="category" onclick="filterTools('writing')">文案创作</div>
+            <div class="category" onclick="filterTools('other')">其他工具</div>
+        </div>
+
+        <div class="tools-grid">
+            <!-- ChatGPT -->
+            <div class="tool-card" data-categories="chat writing code">
+                <div class="tool-header chatgpt">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">ChatGPT</div>
+                    <div class="tool-description">OpenAI的对话式AI助手，支持多种任务和GPT-4模型</div>
+                    <a href="https://chat.openai.com" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- Claude -->
+            <div class="tool-card" data-categories="chat writing">
+                <div class="tool-header claude">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Anthropic_Logo.svg" alt="Claude" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">Claude</div>
+                    <div class="tool-description">Anthropic的AI助手，擅长长文本处理和自然对话</div>
+                    <a href="https://claude.ai" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- Gemini -->
+            <div class="tool-card" data-categories="chat writing code">
+                <div class="tool-header gemini">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Gemini_logo.svg" alt="Gemini" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">Gemini</div>
+                    <div class="tool-description">Google的多模态AI模型，整合Google搜索能力</div>
+                    <a href="https://gemini.google.com" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- Microsoft Copilot -->
+            <div class="tool-card" data-categories="chat code">
+                <div class="tool-header copilot">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Copilot_logo.svg" alt="Microsoft Copilot" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">Microsoft Copilot</div>
+                    <div class="tool-description">微软的AI助手，与Windows和Office深度集成</div>
+                    <a href="https://copilot.microsoft.com" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- 百度文心一言 -->
+            <div class="tool-card" data-categories="chat writing">
+                <div class="tool-header wenxin">
+                    <img src="/api/placeholder/150/50" alt="文心一言" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">文心一言</div>
+                    <div class="tool-description">百度的AI对话模型，中文处理能力强</div>
+                    <a href="https://yiyan.baidu.com" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- 讯飞星火 -->
+            <div class="tool-card" data-categories="chat writing">
+                <div class="tool-header xunfei">
+                    <img src="/api/placeholder/150/50" alt="讯飞星火" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">讯飞星火</div>
+                    <div class="tool-description">科大讯飞的认知大模型，语音交互优秀</div>
+                    <a href="https://xinghuo.xfyun.cn" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- 通义千问 -->
+            <div class="tool-card" data-categories="chat writing">
+                <div class="tool-header qianwen">
+                    <img src="/api/placeholder/150/50" alt="通义千问" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">通义千问</div>
+                    <div class="tool-description">阿里巴巴的大语言模型，商业场景适应性强</div>
+                    <a href="https://qianwen.aliyun.com" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- DeepSeek -->
+            <div class="tool-card" data-categories="chat writing code">
+                <div class="tool-header deepseek">
+                    <img src="/api/placeholder/150/50" alt="DeepSeek" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">DeepSeek</div>
+                    <div class="tool-description">专注于代码和科学计算的大语言模型</div>
+                    <a href="https://chat.deepseek.com" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- 豆包 -->
+            <div class="tool-card" data-categories="chat writing image">
+                <div class="tool-header doubao">
+                    <img src="/api/placeholder/150/50" alt="豆包" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">豆包</div>
+                    <div class="tool-description">字节跳动旗下的AI助手，多模态能力强</div>
+                    <a href="https://www.doubao.com" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- GitHub Copilot -->
+            <div class="tool-card" data-categories="code">
+                <div class="tool-header copilot">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/GitHub_Copilot_logo.svg" alt="GitHub Copilot" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">GitHub Copilot</div>
+                    <div class="tool-description">AI编程助手，支持多种编程语言和IDE集成</div>
+                    <a href="https://github.com/features/copilot" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- Midjourney -->
+            <div class="tool-card" data-categories="image">
+                <div class="tool-header midjourney">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png" alt="Midjourney" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">Midjourney</div>
+                    <div class="tool-description">强大的AI图像生成工具，艺术风格突出</div>
+                    <a href="https://www.midjourney.com" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- DALL-E -->
+            <div class="tool-card" data-categories="image">
+                <div class="tool-header chatgpt">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Dall-e-logo.jpg" alt="DALL-E" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">DALL-E</div>
+                    <div class="tool-description">OpenAI的图像生成模型，可从文本创建图像</div>
+                    <a href="https://openai.com/dall-e-3" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- 智谱AI -->
+            <div class="tool-card" data-categories="chat writing">
+                <div class="tool-header zhipu">
+                    <img src="/api/placeholder/150/50" alt="智谱AI" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">智谱AI</div>
+                    <div class="tool-description">清华大学背景的大语言模型，学术能力强</div>
+                    <a href="https://open.bigmodel.cn" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+
+            <!-- Stable Diffusion -->
+            <div class="tool-card" data-categories="image">
+                <div class="tool-header other">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Logo_of_Stable_Diffusion.png" alt="Stable Diffusion" class="tool-logo">
+                </div>
+                <div class="tool-body">
+                    <div class="tool-name">Stable Diffusion</div>
+                    <div class="tool-description">开源图像生成模型，可本地部署</div>
+                    <a href="https://stablediffusionweb.com" target="_blank" class="tool-link">访问</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 AI工具导航中心 | 最后更新: 2025年4月</p>
+        </footer>
+    </div>
+
+    <script>
+        // 搜索功能
+        function searchTools() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('.tool-card');
+            
+            cards.forEach(card => {
+                const name = card.querySelector('.tool-name').textContent.toLowerCase();
+                const description = card.querySelector('.tool-description').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // 分类过滤功能
+        function filterTools(category) {
+            const cards = document.querySelectorAll('.tool-card');
+            const categories = document.querySelectorAll('.category');
+            
+            // 更新活跃类别
+            categories.forEach(cat => {
+                if (cat.textContent.toLowerCase().includes(category)) {
+                    cat.classList.add('active');
+                } else {
+                    cat.classList.remove('active');
+                }
+            });
+            
+            // 过滤卡片
+            if (category === 'all') {
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            } else {
+                cards.forEach(card => {
+                    if (card.dataset.categories.includes(category)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        }
+
+        // 搜索框回车触发搜索
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchTools();
+            }
+        });
+    </script>
+</body>
+</html>
